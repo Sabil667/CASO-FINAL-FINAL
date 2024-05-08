@@ -1,4 +1,4 @@
-package EJERCICIO1;
+package TWITTER;
 
 public class Utils {
     public static boolean isValidEmail(String email) {

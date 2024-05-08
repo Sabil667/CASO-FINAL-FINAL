@@ -1,4 +1,4 @@
-package EJERCICIO1;
+package TWITTER;
 
 import java.util.*;
 
