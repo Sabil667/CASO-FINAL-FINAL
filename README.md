@@ -71,17 +71,26 @@ Cuando no se necesitan realizar operaciones de rango ya que estan no son adecuad
 Operaciones que se pueden realizar con las estructuras.
 
 -Tabla hash-
+
 1.Insercion-> Agregar un nuevo par clave-valor
+
 2.Busqueda-> Buscar un valor en la tabla usando una clave
+
 3.Eliminacion-> Eliminar un par clave-valor usando su clave
+
 4.Contiene clave-> Verificar si una clave en especifico existe en la tabla
 
 -Arbol-
 1.Insercion-> Agregar un nuevo nodo en el arbol en la posicion correcta
+
 2.Busqueda-> Busqueda de un valor en el arbol usando su valor 
+
 3.Eliminacion-> Eliminacion de un nodo del arbol, donde se reorganizan los nodos restantes para mantener la propiedad de busqueda binaria
+
 4.Recorrido-> Ver todos los nodos del arbol en un orden especifico
+
 5.Encontrar el minimo y el maximo-> Encontrar el nodo con el valor maximo/minimo en el arbol
+
 6.Operacion de rango-> Encuentra todos los nodos con valores dentro de un rango especifico
 
 
@@ -131,11 +140,17 @@ iteraciones sobre el siguiente conjunto de datos:
 
 -Iteraciones-
 1.Comenzamos con el segundo elemento: 20. Como 20 es menor que 50, lo movemos antes de 50. Nuestra lista ahora se ve asi: 20 50 84 13 22 16 89 85
+
 2.Pasamos al siguiente numero: 84. Como 84 es mayor que 50, lo dejamos donde esta. La lista sigue igual.
+
 3.Pasamos al siguiente numero: 13. Como 13 es menor que todos los numeros antes de el, lo movemos al principio de la lista. Nuestra lista ahora se ve asi: 13 20 50 84 22 16 89 85
+
 4.Pasamos al siguiente numero: 22. 22 es mayor que 13 pero menor que 20, 50 y 84, por lo que lo insertamos despues de 13. Nuestra lista ahora se ve asi: 13 22 20 50 84 16 89 85
+
 5.Pasamos al siguiente número: 16. 16 es mayor que 13 pero menor que 20, 22, 50 y 84, por lo que lo insertamos después de 13. Nuestra lista ahora se ve así: 13 16 20 22 50 84 89 85
+
 6.Pasamos al siguiente número: 89. Como 89 es mayor que todos los números antes de él, lo dejamos donde está. La lista sigue igual: 13 16 20 22 50 84 89 85
+
 7.Pasamos al último número: 85. 85 es mayor que 13, 16, 20, 22, 50 y 84 pero menor que 89, por lo que lo insertamos antes de 89. Nuestra lista ahora se ve así: 13 16 20 22 50 84 85 89
 
 
