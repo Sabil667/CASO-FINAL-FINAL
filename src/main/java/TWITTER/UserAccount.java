@@ -48,4 +48,7 @@ public class UserAccount {
     public String getEmail() {
         return this.email;
     }
+    public String getAlias() {
+        return this.alias;
+    }
 }
