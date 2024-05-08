@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TWITTERMAIN extends JFrame {
@@ -18,6 +20,9 @@ public class TWITTERMAIN extends JFrame {
     private List<UserAccount> allUsers;
     private JButton followButton;
     private JButton showInfoButton;
+    private JButton tweetButton;
+    private JButton loadUserButton;
+    private JButton sortButton;
 
     public TWITTERMAIN() {
         allUsers = new ArrayList<>();
@@ -48,8 +53,8 @@ public class TWITTERMAIN extends JFrame {
                     UserAccount user2 = new UserAccount("alias2", "email2@example.com");
                     user1.follow(user2);
 
-                    Tweet tweet1 = new Tweet("Hola, este es mi primer tweet", user1);
-                    Tweet tweet2 = new Tweet("Hola, este es mi segundo tweet", user2);
+                    Tweet2 tweet1 = new Tweet2("Hola, este es mi primer tweet", user1);
+                    Tweet2 tweet2 = new Tweet2("Hola, este es mi segundo tweet", user2);
 
                     user1.getTweets().add(tweet1);
                     user2.getTweets().add(tweet2);
@@ -104,8 +109,59 @@ public class TWITTERMAIN extends JFrame {
             }
         });
 
+        tweetButton = new JButton("Publicar Tweet");
+        tweetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String tweetContent = JOptionPane.showInputDialog("Introduce el contenido del tweet:");
+                if (tweetContent != null && !tweetContent.isEmpty()) {
+                    Tweet2 newTweet = new Tweet2(tweetContent, user1);
+                    user1.getTweets().add(newTweet);
+                    infoArea.setText("Has publicado un nuevo tweet: " + tweetContent);
+                } else {
+                    JOptionPane.showMessageDialog(TWITTERMAIN.this, "El contenido del tweet no puede estar vacío.");
+                }
+            }
+        });
+
+        loadUserButton = new JButton("Cargar Usuario");
+        loadUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String alias = JOptionPane.showInputDialog("Introduce el alias del usuario que quieres cargar:");
+                UserAccount userToLoad = findUserByAlias(alias);
+                if (userToLoad != null) {
+                    user1 = userToLoad;
+                    infoArea.setText("Has cargado el usuario: " + alias);
+                } else {
+                    JOptionPane.showMessageDialog(TWITTERMAIN.this, "No se encontró el usuario con el alias: " + alias);
+                }
+            }
+        });
+
+        sortButton = new JButton("Ordenar Usuarios");
+        sortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Collections.sort(allUsers, new Comparator<UserAccount>() {
+                    @Override
+                    public int compare(UserAccount user1, UserAccount user2) {
+                        return user1.getAlias().compareTo(user2.getAlias());
+                    }
+                });
+                StringBuilder sortedUsers = new StringBuilder("Usuarios ordenados por alias:\n");
+                for (UserAccount user : allUsers) {
+                    sortedUsers.append(user.getAlias()).append("\n");
+                }
+                infoArea.setText(sortedUsers.toString());
+            }
+        });
+
         mainPanel.add(followButton);
         mainPanel.add(showInfoButton);
+        mainPanel.add(tweetButton);
+        mainPanel.add(loadUserButton);
+        mainPanel.add(sortButton);
         mainPanel.add(new JScrollPane(infoArea));
 
         // Agregar los paneles al marco

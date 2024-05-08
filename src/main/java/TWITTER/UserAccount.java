@@ -8,7 +8,7 @@ public class UserAccount {
     private List<Tweet> tweets;
     private Set<UserAccount> followers;
     private Set<UserAccount> following;
-    private List<Tweet> timeline;
+    private List<Tweet2> timeline;
 
     public UserAccount(String alias, String email) {
         if (!Utils.isValidEmail(email)) {
