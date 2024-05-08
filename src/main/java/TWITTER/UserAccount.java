@@ -44,4 +44,8 @@ public class UserAccount {
     public Set<UserAccount> getFollowing() {
         return new HashSet<>(this.following);
     }
+
+    public String getEmail() {
+        return this.email;
+    }
 }

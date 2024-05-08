@@ -1,9 +1,23 @@
 package TWITTER;
 
+import java.util.Scanner;
 
 public class Twitter {
     public static void main(String[] args) {
-        UserAccount user1 = new UserAccount("alias1", "email1@example.com");
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Por favor, introduce tu email:");
+        String email = scanner.nextLine();
+
+        if (!Utils.isValidEmail(email)) {
+            System.out.println("Email invalido. Por favor, introduce un email valido.");
+            return;
+        }
+
+        System.out.println("Por favor, introduce tu alias:");
+        String alias = scanner.nextLine();
+
+        UserAccount user1 = new UserAccount(alias, email);
         UserAccount user2 = new UserAccount("alias2", "email2@example.com");
 
         user1.follow(user2);
