@@ -7,37 +7,44 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwitterGUI extends JFrame {
+public class TWITTERMAIN extends JFrame {
+    private JPanel loginPanel;
+    private JPanel mainPanel;
     private JTextField emailField;
     private JTextField aliasField;
     private JTextField followField;
     private JTextArea infoArea;
     private UserAccount user1;
     private List<UserAccount> allUsers;
+    private JButton followButton;
+    private JButton showInfoButton;
 
-    public TwitterGUI() {
+    public TWITTERMAIN() {
         allUsers = new ArrayList<>();
         setTitle("Twitter");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
+        setLayout(new CardLayout());
 
+        // Panel de inicio de sesión
+        loginPanel = new JPanel(new FlowLayout());
         emailField = new JTextField(20);
         aliasField = new JTextField(20);
-        followField = new JTextField(20);
-        infoArea = new JTextArea(10, 30);
+        infoArea = new JTextArea(10, 30); // Inicializar infoArea aquí
         infoArea.setEditable(false);
 
-        JButton submitButton = new JButton("Submit");
-        submitButton.addActionListener(new ActionListener() {
+        JButton loginButton = new JButton("Login");
+        loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String email = emailField.getText();
                 String alias = aliasField.getText();
 
-                if (Utils.isValidEmail(email)) {
+                if (Utils.isValidEmail(email) && Utils.isValidAlias(alias)) {
                     user1 = new UserAccount(alias, email);
                     allUsers.add(user1);
+
+                    // Agregar la información del usuario
                     UserAccount user2 = new UserAccount("alias2", "email2@example.com");
                     user1.follow(user2);
 
@@ -53,13 +60,25 @@ public class TwitterGUI extends JFrame {
                             "Tweets de Usuario 1: " + user1.getTweets().size() + "\n" +
                             "Tweets de Usuario 2: " + user2.getTweets().size();
                     infoArea.setText(info);
+
+                    // Cambiar a la interfaz principal
+                    ((CardLayout) getContentPane().getLayout()).show(getContentPane(), "MainPanel");
                 } else {
-                    infoArea.setText("Email invalido. Por favor, introduce un email valido.");
+                    JOptionPane.showMessageDialog(TWITTERMAIN.this, "Email o alias invalido. Por favor, introduce un email y alias valido.");
                 }
             }
         });
+        loginPanel.add(new JLabel("Email:"));
+        loginPanel.add(emailField);
+        loginPanel.add(new JLabel("Alias:"));
+        loginPanel.add(aliasField);
+        loginPanel.add(loginButton);
 
-        JButton followButton = new JButton("Follow");
+        // Panel principal
+        mainPanel = new JPanel(new FlowLayout());
+        followField = new JTextField(20);
+
+        followButton = new JButton("Follow");
         followButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,14 +94,23 @@ public class TwitterGUI extends JFrame {
                 }
             }
         });
+        showInfoButton = new JButton("Show Info");
+        showInfoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (user1 != null) {
+                    infoArea.setText(user1.toString());
+                }
+            }
+        });
 
-        add(new JLabel("Email:"));
-        add(emailField);
-        add(new JLabel("Alias:"));
-        add(aliasField);
-        add(submitButton);
-        add(followButton);
-        add(new JScrollPane(infoArea));
+        mainPanel.add(followButton);
+        mainPanel.add(showInfoButton);
+        mainPanel.add(new JScrollPane(infoArea));
+
+        // Agregar los paneles al marco
+        add(loginPanel, "LoginPanel");
+        add(mainPanel, "MainPanel");
     }
 
     private UserAccount findUserByAlias(String alias) {
@@ -98,7 +126,7 @@ public class TwitterGUI extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new TwitterGUI().setVisible(true);
+                new TWITTERMAIN().setVisible(true);
             }
         });
     }
