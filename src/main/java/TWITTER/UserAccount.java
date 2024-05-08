@@ -52,4 +52,8 @@ public class UserAccount {
     public String getAlias() {
         return this.alias;
     }
+    @Override
+    public String toString() {
+        return "Alias: " + this.alias + ", Email: " + this.email;
+    }
 }
