@@ -12,10 +12,10 @@ public class UserAccount {
 
     public UserAccount(String alias, String email) {
         if (!Utils.isValidEmail(email)) {
-            throw new IllegalArgumentException("Invalid email");
+            throw new IllegalArgumentException("Email invalido");
         }
         if (!Utils.isValidAlias(alias)) {
-            throw new IllegalArgumentException("Invalid alias");
+            throw new IllegalArgumentException("Alias invalido");
         }
         this.alias = alias;
         this.email = email;
@@ -23,5 +23,13 @@ public class UserAccount {
         this.followers = new HashSet<>();
         this.following = new HashSet<>();
         this.timeline = new ArrayList<>();
+    }
+
+    public void follow(UserAccount targetUser) {
+        if (this.following.contains(targetUser)) {
+            throw new IllegalArgumentException("Ya estas siguiendo a este usuario");
+        }
+        this.following.add(targetUser);
+        targetUser.followers.add(this);
     }
 }
