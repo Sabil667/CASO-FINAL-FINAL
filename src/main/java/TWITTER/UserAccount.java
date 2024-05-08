@@ -32,4 +32,16 @@ public class UserAccount {
         this.following.add(targetUser);
         targetUser.followers.add(this);
     }
+
+    public List<Tweet> getTweets() {
+        return new ArrayList<>(this.tweets);
+    }
+
+    public Set<UserAccount> getFollowers() {
+        return new HashSet<>(this.followers);
+    }
+
+    public Set<UserAccount> getFollowing() {
+        return new HashSet<>(this.following);
+    }
 }
