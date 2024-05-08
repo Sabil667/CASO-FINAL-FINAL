@@ -1,15 +1,22 @@
 package TWITTER;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TwitterGUI extends JFrame {
     private JTextField emailField;
     private JTextField aliasField;
+    private JTextField followField;
     private JTextArea infoArea;
+    private UserAccount user1;
+    private List<UserAccount> allUsers;
 
     public TwitterGUI() {
+        allUsers = new ArrayList<>();
         setTitle("Twitter");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,6 +24,7 @@ public class TwitterGUI extends JFrame {
 
         emailField = new JTextField(20);
         aliasField = new JTextField(20);
+        followField = new JTextField(20);
         infoArea = new JTextArea(10, 30);
         infoArea.setEditable(false);
 
@@ -26,10 +34,11 @@ public class TwitterGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String email = emailField.getText();
                 String alias = aliasField.getText();
-                if (Utils.isValidEmail(email)) {
-                    UserAccount user1 = new UserAccount(alias, email);
-                    UserAccount user2 = new UserAccount("alias2", "email2@example.com");
 
+                if (Utils.isValidEmail(email)) {
+                    user1 = new UserAccount(alias, email);
+                    allUsers.add(user1);
+                    UserAccount user2 = new UserAccount("alias2", "email2@example.com");
                     user1.follow(user2);
 
                     Tweet tweet1 = new Tweet("Hola, este es mi primer tweet", user1);
@@ -50,13 +59,39 @@ public class TwitterGUI extends JFrame {
             }
         });
 
+        JButton followButton = new JButton("Follow");
+        followButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String followAlias = JOptionPane.showInputDialog("Introduce el alias del usuario que quieres seguir:");
+                UserAccount userToFollow = findUserByAlias(followAlias);
+                if (userToFollow != null) {
+                    if (user1.getFollowing().contains(userToFollow)) {
+                        infoArea.setText("Ya estás siguiendo a: " + followAlias);
+                    } else {
+                        user1.follow(userToFollow);
+                        infoArea.setText("Has empezado a seguir a: " + followAlias);
+                    }
+                }
+            }
+        });
 
         add(new JLabel("Email:"));
         add(emailField);
         add(new JLabel("Alias:"));
         add(aliasField);
         add(submitButton);
+        add(followButton);
         add(new JScrollPane(infoArea));
+    }
+
+    private UserAccount findUserByAlias(String alias) {
+        for (UserAccount user : allUsers) {
+            if (user.getAlias().equals(alias)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {
