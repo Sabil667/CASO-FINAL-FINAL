@@ -1,5 +1,5 @@
 package EJERCICIO1;
-
+import java.util.Date;
 public class Tweet {
     private String content;
     private UserAccount user;
