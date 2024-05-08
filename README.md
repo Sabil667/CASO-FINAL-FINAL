@@ -81,6 +81,7 @@ Operaciones que se pueden realizar con las estructuras.
 4.Contiene clave-> Verificar si una clave en especifico existe en la tabla
 
 -Arbol-
+
 1.Insercion-> Agregar un nuevo nodo en el arbol en la posicion correcta
 
 2.Busqueda-> Busqueda de un valor en el arbol usando su valor 
