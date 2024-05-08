@@ -5,10 +5,9 @@ import java.util.*;
 public class UserAccount {
     private String alias;
     private String email;
-    private List<Tweet> tweets;
+    private List<Tweet2> tweets; // Cambiado de Tweet a Tweet2
     private Set<UserAccount> followers;
     private Set<UserAccount> following;
-    private List<Tweet2> timeline;
 
     public UserAccount(String alias, String email) {
         if (!Utils.isValidEmail(email)) {
@@ -22,7 +21,6 @@ public class UserAccount {
         this.tweets = new ArrayList<>();
         this.followers = new HashSet<>();
         this.following = new HashSet<>();
-        this.timeline = new ArrayList<>();
     }
 
     public void follow(UserAccount targetUser) {
@@ -33,7 +31,7 @@ public class UserAccount {
         targetUser.followers.add(this);
     }
 
-    public List<Tweet> getTweets() {
+    public List<Tweet2> getTweets() { // Cambiado de Tweet a Tweet2
         return new ArrayList<>(this.tweets);
     }
 
@@ -52,6 +50,7 @@ public class UserAccount {
     public String getAlias() {
         return this.alias;
     }
+
     @Override
     public String toString() {
         return "Alias: " + this.alias + ", Email: " + this.email;
