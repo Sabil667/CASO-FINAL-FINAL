@@ -38,7 +38,8 @@ public class TwitterGUI extends JFrame {
                     user1.getTweets().add(tweet1);
                     user2.getTweets().add(tweet2);
 
-                    String info = "Usuario 1 está siguiendo a: " + user1.getFollowing().size() + " usuarios\n" +
+                    String info = "Alias del usuario: " + user1.getAlias() + "\n" +
+                            "Usuario 1 está siguiendo a: " + user1.getFollowing().size() + " usuarios\n" +
                             "Usuario 2 tiene: " + user2.getFollowers().size() + " seguidores\n" +
                             "Tweets de Usuario 1: " + user1.getTweets().size() + "\n" +
                             "Tweets de Usuario 2: " + user2.getTweets().size();
@@ -48,6 +49,7 @@ public class TwitterGUI extends JFrame {
                 }
             }
         });
+
 
         add(new JLabel("Email:"));
         add(emailField);
